@@ -1,1 +1,438 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>یک قرار برای تو ❤️</title>
 
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+    color: #4a2632;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 92%;
+    max-width: 500px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 30px;
+    padding: 30px 22px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(120,40,70,0.18);
+    position: relative;
+}
+
+.heart {
+    font-size: 55px;
+    animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+h1 {
+    font-size: 28px;
+    margin: 10px 0 20px;
+}
+
+h2 {
+    font-size: 23px;
+}
+
+p {
+    line-height: 2;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    border: none;
+    border-radius: 50px;
+    padding: 14px 25px;
+    margin: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.yes {
+    background: #e75480;
+    color: white;
+}
+
+.yes:hover {
+    transform: scale(1.05);
+}
+
+.no {
+    background: #eee;
+    color: #555;
+    position: relative;
+}
+
+.option {
+    width: 90%;
+    background: white;
+    border: 2px solid #f1b6c8;
+    color: #633342;
+}
+
+.option:hover {
+    background: #fff0f5;
+    transform: scale(1.03);
+}
+
+.selected {
+    background: #e75480 !important;
+    color: white !important;
+    border-color: #e75480 !important;
+}
+
+input[type="date"],
+input[type="time"] {
+    padding: 13px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    margin: 8px;
+    font-size: 16px;
+    width: 85%;
+}
+
+.next {
+    margin-top: 20px;
+    background: #8e3154;
+    color: white;
+}
+
+.message {
+    background: #fff4f7;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.small {
+    font-size: 13px;
+    color: #96717c;
+}
+
+#noButton {
+    transition: all .15s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- صفحه اول -->
+    <div id="page1">
+
+        <div class="heart">❤️</div>
+
+        <h1>مبینای عزیزم</h1>
+
+        <p>
+            یه قرار کوچیک دارم که فقط یه بهونه‌ست...
+            <br>
+            بهونه‌ای برای اینکه چند ساعت از شلوغی دنیا فاصله بگیریم
+            و فقط کنار هم باشیم. ❤️
+        </p>
+
+        <p>
+            دلم می‌خواد ببینمت، باهات حرف بزنم،
+            بخندیم و یه خاطره‌ی قشنگ دیگه به خاطراتمون اضافه کنیم.
+        </p>
+
+        <h2>حاضری با من بیای یه قرار؟ 🥹❤️</h2>
+
+        <button class="btn yes" onclick="goToPage(2)">
+            آره، با کمال میل ❤️
+        </button>
+
+        <button
+            class="btn no"
+            id="noButton"
+            onclick="runAway()">
+            نه 😐
+        </button>
+
+        <p class="small" id="noText"></p>
+
+    </div>
+
+
+    <!-- صفحه دوم -->
+    <div id="page2" class="hidden">
+
+        <div class="heart">🥰</div>
+
+        <h2>خب خب... پس بریم مرحله بعد ❤️</h2>
+
+        <p>چه روزی دوست داری قرار بذاریم؟</p>
+
+        <button class="btn option" onclick="selectDay(this,'پنجشنبه')">
+            پنجشنبه
+        </button>
+
+        <button class="btn option" onclick="selectDay(this,'جمعه')">
+            جمعه
+        </button>
+
+        <button class="btn option" onclick="selectDay(this,'شنبه')">
+            شنبه
+        </button>
+
+        <button class="btn option" onclick="selectDay(this,'انتخاب با من')">
+            انتخاب با من ❤️
+        </button>
+
+        <br>
+
+        <button class="btn next" onclick="goToPage(3)">
+            بریم ادامه ❤️
+        </button>
+
+    </div>
+
+
+    <!-- صفحه سوم -->
+    <div id="page3" class="hidden">
+
+        <div class="heart">🌹</div>
+
+        <h2>حالا یه چیز مهم‌تر...</h2>
+
+        <p>برای قرارمون چی بخوریم؟ 😋</p>
+
+        <button class="btn option" onclick="selectFood(this,'قهوه ☕')">
+            ☕ قهوه
+        </button>
+
+        <button class="btn option" onclick="selectFood(this,'کبابی 🍢')">
+            🍢 کبابی
+        </button>
+
+        <button class="btn option" onclick="selectFood(this,'فست‌فود 🍔')">
+            🍔 فست‌فود
+        </button>
+
+        <button class="btn option" onclick="selectFood(this,'انتخاب با من ❤️')">
+            ❤️ انتخاب با من
+        </button>
+
+        <br>
+
+        <button class="btn next" onclick="goToPage(4)">
+            انتخاب کردم ❤️
+        </button>
+
+    </div>
+
+
+    <!-- صفحه چهارم -->
+    <div id="page4" class="hidden">
+
+        <div class="heart">🌙</div>
+
+        <h2>آخرین انتخاب...</h2>
+
+        <p>چه ساعتی بریم؟</p>
+
+        <input type="time" id="time">
+
+        <br>
+
+        <button class="btn next" onclick="finish()">
+            ثبت قرار ❤️
+        </button>
+
+    </div>
+
+
+    <!-- صفحه پایان -->
+    <div id="page5" class="hidden">
+
+        <div class="heart">💖</div>
+
+        <h1>پس قرارمون قطعی شد!</h1>
+
+        <div class="message">
+
+            <p>
+                حالا فقط مونده اون لحظه‌ای که ببینمت
+                و بفهمم تمام این انتظار ارزشش رو داشته. ❤️
+            </p>
+
+            <p>
+                منتظرت می‌مونم، مبینا جان. 🫶🏻
+            </p>
+
+            <p id="finalInfo"></p>
+
+        </div>
+
+        <p>
+            یه قرار قشنگ در انتظارمونه... 🌹
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedDay = "";
+let selectedFood = "";
+let selectedTime = "";
+
+let noCount = 0;
+
+const noMessages = [
+    "مطمئنی؟ 🥺",
+    "یه بار دیگه فکر کن 😭",
+    "این گزینه رو واقعاً می‌خوای؟",
+    "نه گفتن ممنوعه 😂",
+    "داری اشتباه می‌زنی 😐❤️",
+    "این دکمه فراریه! 😂",
+    "باشه... اصلاً پیداش نمی‌کنی 😈"
+];
+
+
+function goToPage(pageNumber) {
+
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById("page" + i)
+            .classList.add("hidden");
+    }
+
+    document.getElementById("page" + pageNumber)
+        .classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function runAway() {
+
+    const button = document.getElementById("noButton");
+    const text = document.getElementById("noText");
+
+    noCount++;
+
+    text.innerText =
+        noMessages[Math.min(noCount - 1, noMessages.length - 1)];
+
+    if (noCount >= 6) {
+
+        button.innerText = "من نیستم 😭";
+
+    } else {
+
+        button.innerText = noMessages[
+            Math.min(noCount, noMessages.length - 1)
+        ];
+    }
+
+    const container = document.querySelector(".container");
+
+    const maxX =
+        container.clientWidth - button.offsetWidth - 20;
+
+    const maxY = 250;
+
+    const x = Math.random() * maxX - maxX / 2;
+    const y = Math.random() * maxY - maxY / 2;
+
+    button.style.transform =
+        `translate(${x}px, ${y}px) rotate(${Math.random()*20-10}deg)`;
+
+    // بزرگ‌تر شدن دکمه آره
+    const yesButton =
+        document.querySelector(".yes");
+
+    yesButton.style.transform =
+        `scale(${1 + noCount * 0.04})`;
+}
+
+
+function selectDay(button, day) {
+
+    selectedDay = day;
+
+    document.querySelectorAll("#page2 .option")
+        .forEach(btn => btn.classList.remove("selected"));
+
+    button.classList.add("selected");
+}
+
+
+function selectFood(button, food) {
+
+    selectedFood = food;
+
+    document.querySelectorAll("#page3 .option")
+        .forEach(btn => btn.classList.remove("selected"));
+
+    button.classList.add("selected");
+}
+
+
+function finish() {
+
+    selectedTime =
+        document.getElementById("time").value;
+
+    if (!selectedDay) {
+        alert("اول روز قرار رو انتخاب کن ❤️");
+        return;
+    }
+
+    if (!selectedFood) {
+        alert("غذا رو هم انتخاب کن 😋");
+        return;
+    }
+
+    if (!selectedTime) {
+        alert("ساعت قرار رو هم انتخاب کن ❤️");
+        return;
+    }
+
+    document.getElementById("finalInfo").innerHTML =
+        `
+        📅 روز: ${selectedDay}
+        <br><br>
+        🍽 انتخاب: ${selectedFood}
+        <br><br>
+        ⏰ ساعت: ${selectedTime}
+        `;
+
+    goToPage(5);
+
+}
+
+</script>
+
+</body>
+  </html>
