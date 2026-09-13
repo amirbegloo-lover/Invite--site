@@ -1,40 +1,127 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>یک قرار برای تو ❤️</title>
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxsGuoJTqhtRZCuu1YVWK7AZqIGmvx6_eChMXfHkQwcA0OgrF0QSa97PxLdCAlFrCDx/exec";
 
-<style>
-* {
-    box-sizing: border-box;
+let selectedDay = "";
+let selectedFood = "";
+let selectedTime = "";
+
+let noCount = 0;
+
+const noMessages = [
+    "مطمئنی؟ 🥺",
+    "یه بار دیگه فکر کن 😭",
+    "این گزینه رو واقعاً می‌خوای؟",
+    "نه گفتن ممنوعه 😂",
+    "داری اشتباه می‌زنی 😐❤️",
+    "این دکمه فراریه! 😂",
+    "من نیستم 😭"
+];
+
+function goToPage(pageNumber) {
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById("page" + i).classList.add("hidden");
+    }
+
+    document.getElementById("page" + pageNumber).classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-body {
-    margin: 0;
-    font-family: Tahoma, Arial, sans-serif;
-    background: linear-gradient(135deg, #fff0f5, #ffe4ec);
-    color: #4a2632;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
+function runAway() {
+    const button = document.getElementById("noButton");
+    const text = document.getElementById("noText");
+
+    noCount++;
+
+    text.innerText =
+        noMessages[Math.min(noCount - 1, noMessages.length - 1)];
+
+    button.innerText =
+        noMessages[Math.min(noCount, noMessages.length - 1)];
+
+    const container = document.querySelector(".container");
+
+    const maxX = container.clientWidth - button.offsetWidth - 20;
+    const maxY = 250;
+
+    const x = Math.random() * maxX - maxX / 2;
+    const y = Math.random() * maxY - maxY / 2;
+
+    button.style.transform =
+        `translate(${x}px, ${y}px) rotate(${Math.random()*20-10}deg)`;
+
+    document.querySelector(".yes").style.transform =
+        `scale(${1 + noCount * 0.04})`;
 }
 
-.container {
-    width: 92%;
-    max-width: 500px;
-    background: rgba(255,255,255,0.92);
-    border-radius: 30px;
-    padding: 30px 22px;
-    text-align: center;
-    box-shadow: 0 15px 50px rgba(120,40,70,0.18);
-    position: relative;
+function selectDay(button, day) {
+    selectedDay = day;
+
+    document.querySelectorAll("#page2 .option")
+        .forEach(btn => btn.classList.remove("selected"));
+
+    button.classList.add("selected");
 }
 
-.heart {
-    font-size: 55px;
+function selectFood(button, food) {
+    selectedFood = food;
+
+    document.querySelectorAll("#page3 .option")
+        .forEach(btn => btn.classList.remove("selected"));
+
+    button.classList.add("selected");
+}
+
+function finish() {
+
+    selectedTime = document.getElementById("time").value;
+
+    if (!selectedDay) {
+        alert("اول روز قرار رو انتخاب کن ❤️");
+        return;
+    }
+
+    if (!selectedFood) {
+        alert("غذا رو هم انتخاب کن 😋");
+        return;
+    }
+
+    if (!selectedTime) {
+        alert("ساعت قرار رو هم انتخاب کن ❤️");
+        return;
+    }
+
+    document.getElementById("finalInfo").innerHTML =
+        `
+        📅 روز: ${selectedDay}
+        <br><br>
+        🍽 انتخاب: ${selectedFood}
+        <br><br>
+        ⏰ ساعت: ${selectedTime}
+        `;
+
+    sendToTelegram();
+
+    goToPage(5);
+}
+
+function sendToTelegram() {
+
+    const data = {
+        day: selectedDay,
+        food: selectedFood,
+        time: selectedTime
+    };
+
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data)
+    });
+}    font-size: 55px;
     animation: beat 1.2s infinite;
 }
 
